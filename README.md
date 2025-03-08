@@ -8,6 +8,7 @@ These projects are the source code for my dissertation thesis.
 
 Thank you to the original authors of MicroRTS, available at [https://github.com/Farama-Foundation/MicroRTS](https://github.com/Farama-Foundation/MicroRTS).  
 Thank you to the original authors of MicroRTS-py, available at [https://github.com/Farama-Foundation/MicroRTS-py](https://github.com/Farama-Foundation/MicroRTS-py).  
+Thank you to the original authors of python-microRTS, available at [https://github.com/Bam4d/python-microRTS](https://github.com/Bam4d/python-microRTS), documentation available at [https://douglasrizzo.com.br/python-microRTS/index.html](https://douglasrizzo.com.br/python-microRTS/index.html).  
 
 # Wiki
 [Project Documentation](https://github.com/MariusVladDumitru/MicroRTS/wiki)  

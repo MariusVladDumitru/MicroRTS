@@ -1,0 +1,29 @@
+I need to be able to build MicroRTS in a platform independent way aka the same build process will be on Windows and Linux. 
+This is because, if at some point, for whatever reason, i decide to switch from Windows to Linux or viceversa, i only need to do a minimal exportup and not bother much with the build process.
+MicroRTS is a game written in Java, a platform independent language, so i'm looking for a platform independent language for it's build process to. I decided on using python because it is platform independent and i use it exclusively on the other parts of my dissertation thesis, so it makes perfect sense to go with it.
+I will be adding 2 folders:
+     - docs: alongside the Project wiki, this folder contains files that are useful in any way in documenting the Project, like this Ideas.txt file.
+     - scripts: various scripts useful to the project. GAME CODE WILL NEVER BE HERE be it java code or any other programming language code related to the inner workings of the game itself.
+        * Setup.bat and Setup.sh - prepare the operating system shell(Windows - Setup.bat and Linux - Setup.sh).
+            & Make sure Java JDK is installed on the system
+            & Setup.bat and Setup.sh exports the JAVA_HOME, JAVA_BIN, JAVA_SERVER - environment variables for your shell, but you need to define them manually.
+            & JAVA_HOME = path where Java JDK is installed -> THIS IS REQUIRED by the JAVA JDK to WORK
+            & JAVA_BIN = bin folder from where Java JDK is installed aka JAVA_HOME/bin. -> This i defined it myself.
+            & JAVA_SERVER = server folder from the bin folder from the Java JDK folder aka JAVA_HOME/bin/server or JAVA_BIN/server. -> This i defined it myself.
+            & The environment variables set by Setup.bat and Setup.sh are local to your running shell(terminal) and not global.
+            & Run Setup.bat/Setup.sh only once, when you start your terminal.
+            & If you close then reopen your terminal, run Setup.bat/Setup.sh again.
+
+        * MicroRTS.py - python script that manages the game:
+          MicroRTS.py has the following commands:
+            # MicroRTS.py setup -> prepares the shell to work with MicroRTS by executing Setup.bat or Setup.sh and adds the <PROJECT_ROOT>/scripts folder to path. Let's explore the idea of asking the user the path to JAVA JDK or figuring out by himself where JAVA JDK is and set JAVA_HOME automatically.
+            # MicroRTS.py build -> builds the whole game into a single MicroRTS.jar file. The .jar file is located in <PROJECT_ROOT>/build/MicroRTS.jar
+            # MicroRTS.py clean -> delets the content of <PROJECT_ROOT>/build including MicroRTS.jar.
+            # MicroRTS.py start [<arguments>]. -> runs the main game with optional <arguments>. <arguments> are passed directly to the game:
+                Ex: MicroRts.py run -f configFile <=> java -cp MicroRTS.jar rts.MicroRTS -f configFile
+            # MicroRTS.py start-gui [<arguments>] - runs the game gui with optional <arguments>. <arguments> are passed directly to the game:
+                Ex: MicroRts.py run-gui -f configFile <=> java -cp MicroRTS.jar gui.frontend.FrontEnd -f configFile
+            # MicroRTS.py stop -> stops the execution of the game. 
+
+            MicroRTS.py will be used by the MicroRTS-Python api to control the game.
+                             

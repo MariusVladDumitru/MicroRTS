@@ -1,3 +1,7 @@
+# Wiki
+[Project Documentation](https://github.com/MariusVladDumitru/MicroRTS/wiki)  
+
+# Docs from original repo
 <p align="center">
     <img src="microrts-text.png" width="500px"/>
 </p>

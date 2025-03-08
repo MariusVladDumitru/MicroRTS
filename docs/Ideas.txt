@@ -17,12 +17,17 @@ I will be adding 2 folders:
         * MicroRTS.py - python script that manages the game:
           MicroRTS.py has the following commands:
             # MicroRTS.py setup -> prepares the shell to work with MicroRTS by executing Setup.bat or Setup.sh and adds the <PROJECT_ROOT>/scripts folder to path. Let's explore the idea of asking the user the path to JAVA JDK or figuring out by himself where JAVA JDK is and set JAVA_HOME automatically.
-            # MicroRTS.py build -> builds the whole game into a single MicroRTS.jar file. The .jar file is located in <PROJECT_ROOT>/build/MicroRTS.jar
-            # MicroRTS.py clean -> delets the content of <PROJECT_ROOT>/build including MicroRTS.jar.
+
+            # MicroRTS.py build [<build_path>] -> builds the whole game into a single MicroRTS.jar file. All the intermediate files and final MicroRTS.jar file are to be written in <build_path> specified by the user. <build_path> needs to be a valid path. If <build_path> was omitted then the default value is: <build_path> = <PROJECT_ROOT>/build (default value). <build_path> needs to be saved between the last build command and the next clean command, because clean needs to know what path to clean. Save <build_path> between the most recent run of MicroRTS.py build and the next run of MicroRTS.py clean
+
+            # MicroRTS.py clean [<clean_path>] -> deletes all the intermediate files in <clean_path>, including MicroRTS.jar. If <clean_path> is omitten, the is check if <build_path> is available. If <build_path> is available, then the command deletes all the intermediate files, including MicroRTS.jar from <build_path>. If <build_path> is not available for whatever reason, the the contents of the director <PROJECT_ROOT>/build is deleted, including MicroRTS.jar
+
             # MicroRTS.py start [<arguments>]. -> runs the main game with optional <arguments>. <arguments> are passed directly to the game:
                 Ex: MicroRts.py run -f configFile <=> java -cp MicroRTS.jar rts.MicroRTS -f configFile
+
             # MicroRTS.py start-gui [<arguments>] - runs the game gui with optional <arguments>. <arguments> are passed directly to the game:
                 Ex: MicroRts.py run-gui -f configFile <=> java -cp MicroRTS.jar gui.frontend.FrontEnd -f configFile
+
             # MicroRTS.py stop -> stops the execution of the game. 
 
             MicroRTS.py will be used by the MicroRTS-Python api to control the game.

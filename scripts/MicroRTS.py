@@ -4,18 +4,29 @@ import subprocess
 
 class MicroRTS:
     """
-    USE THIS SCRIPT. DO NOT RUN MicroRTS.jar directly
-         
-    Offers the logic needed to process and execute the given input commands:
-    
-    MicroRTS.py <command> [<arguments>]
+    Parses and interprets the commands and arguments when calling MicroRTS.py script.
+
+    MicroRTS.py <command> [<arguments>] (<arguments> have different meaning based on <command>)
 
     MicroRTS.py <command>:
-        setup: prepares the shell by calling Setup.bat/Setup.sh (depending on the operating system) and adds <PROJECT_ROOT>/scripts to path.
-        build: builds the game into a single .jar file at <PROJECT_ROOT>/build/MicroRTS.jar. MAYBE ALLOW BUILD IN DIFFERENT FOLDER ??
-        clean: empty the contens of <PROJECT_ROOT>/build/* folder. Deletes MicroRTS.jar.
+        setup: Prepares the shell by executing one of the two Setup files from <PROJECT_ROOT>/scripts> and adds <PROJECT_ROOT>/scripts folder to path.
+               For Windows -> creates a new instance of cmd that executes Setup.bat and adds <PROJECT_ROOT>/scripts folder to path.
+               For Linux -> creates a new instance of bash that executes Setup.sh and adds <PROJECT_ROOT>/scripts folder to path.
+        
+        build [<build_path>]: builds the whole game into a single MicroRTS.jar file. 
+                              All the intermediate files and final MicroRTS.jar file are to be written in <build_path> specified by the user.
+                              If <build_path> IS VALID then <build_path> is used.
+                              If <build_path> is omitted/empty/INVALID then the default value <build_path> (default value) = <PROJECT_ROOT>/build is used.
+                              <build_path> is NOT LOST after the execution of MicroRTS.py ends. It is saved and available for the next execution of MicroRTS.py
+
+        clean [<clean_path>]: deletes all the intermediate files and final MicroRTS.jar from <clean_path> or <build_path>.
+                              If <clean_path> is VALID then <clean_path> is used.
+                              If <clean_path> is omitted/empty/INVALID then <build_path> is used. If <build_path> is empty/INVALID the the default value <build_path> (default_value) = <PROJECT_ROOT>/build is used.
+
         start [<game_arguments>]: Runs the game with optional <game_arguments>. <game_arguments> are passed directly to the game.
+
         start-gui [<game_arguments>]: Runs the game gui with optional <game_arguments>. <game_arguments> are passed directly to the game.
+
         stop: Ends the execution of the game.
     """
     def __init__(self):

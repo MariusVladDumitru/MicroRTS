@@ -17,17 +17,22 @@ class MicroRTS:
                               All the intermediate files and final MicroRTS.jar file are to be written in <build_path> specified by the user.
                               If <build_path> IS VALID then <build_path> is used.
                               If <build_path> is omitted/empty/INVALID then the default value <build_path> (default value) = <PROJECT_ROOT>/build is used.
-                              <build_path> is NOT LOST after the execution of MicroRTS.py ends. It is saved and available for the next execution of MicroRTS.py
-
+                              <build_path> is NOT LOST after the execution of MicroRTS.py ends. It is saved and available for the next execution of MicroRTS.py.
+                              
         clean [<clean_path>]: deletes all the intermediate files and final MicroRTS.jar from <clean_path> or <build_path>.
                               If <clean_path> is VALID then <clean_path> is used.
                               If <clean_path> is omitted/empty/INVALID then <build_path> is used. If <build_path> is empty/INVALID the the default value <build_path> (default_value) = <PROJECT_ROOT>/build is used.
 
-        start [<game_arguments>]: Runs the game with optional <game_arguments>. <game_arguments> are passed directly to the game.
+        start [<game_arguments>]: creates a new instance the game with optional <game_arguments> using the cmd/bash instance already started with the previous setup command. Performs a chech if setup was executed before(use the RUN_SETUP environment variable). 
+                                  <game_arguments> are passed directly to the game.
+                                  If an older instance of the game is already running, then a new instance WILL NOT BE started. An error will pop up. 
 
-        start-gui [<game_arguments>]: Runs the game gui with optional <game_arguments>. <game_arguments> are passed directly to the game.
+        start-gui [<game_arguments>]: creates a new instance of the game gui with optional <game_arguments> using the cmd/bash instance already started with the previous setup command.Performs a check if setup was executed before(use the RUN_SETUP environment variable).  
+                                      <game_arguments> are passed directly to the game.
+                                      If an older instance of the game-gui is already running, then a new instance WILL NOT BE started. An error will pop up. 
 
-        stop: Ends the execution of the game.
+
+        stop: Ends the execution of the game or game gui.
     """
     def __init__(self):
         arg = ''
@@ -97,7 +102,7 @@ class MicroRTS:
         Parse arguments.
         Based on the input arguments provided to MicroRTS.py, calls the corresponding method.
         """
-        print("parsing arguments") 
+        print("parsing arguments ->> THIS IS THE FIRST THING THAT YOU NEED TO IMPLEMENT _ PARSING THE ARGUMENTS>") 
 
     def __get_os(self):
         match platform.system():
@@ -115,6 +120,5 @@ class MicroRTS:
                 exit()
 
 if __name__ == "__main__":
-    print("This is MicroRTS.py file")
     MicroRTS = MicroRTS()
     MicroRTS.parse_args()

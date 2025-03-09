@@ -30,5 +30,11 @@ I will be adding 2 folders:
 
             # MicroRTS.py stop -> stops the execution of the game. 
 
+        @ Setup will create a new instance of cmd.
+          start/start-gui will create new instances of game/game-gui
+          stop will end the execution of game/game-gui.
+          BUI WHAT HAPPENES IF MULTIPLE INSTANCES OF game/game-gui are available?
+          FOR SIMPLICITY: i show not allow for a new instance of game/game-gui to start. IF start/start-gui is called and there is an already running instance of game/game-gui just throw an error that game/game-gui is already running and you cannot start a new one.
+
             MicroRTS.py will be used by the MicroRTS-Python api to control the game.
                              

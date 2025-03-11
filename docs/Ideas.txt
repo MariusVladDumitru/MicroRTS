@@ -38,3 +38,34 @@ I will be adding 2 folders:
 
             MicroRTS.py will be used by the MicroRTS-Python api to control the game.
                              
+
+Implementation ideas for MicroRTS.py:
+	- MicroRTS.py setup:
+		* General idea: prepare ( setup) the environment to work with MicroRTS.
+		 
+		* Use batch, cmd, or powershell to launch setup scripts:
+			& Setup.bat - cmd
+			& Setup.sh -  bash
+			& Setup.ps1 - powershell
+				@ These Setup.* scripts prepare the environment with anything thats needed to work with MicroRTS. Mainly add Java JDK to path but can do other stuff too, if needed.
+				@ After these scripts do their job, all MicroRTS.py  commands are need to be executed in the new spawned shell.
+		   
+		 * ONLY Run MicroRTS.py setup just once, when you open your shell ( terminal ). There is a dedicated environment variable RUN_SETUP=true that get's set when one of this scripts is executed.
+		 * At each MicroRTS.py setup run, RUN_SETUP is checked if it's true. If RUN_SETUP == true, then don't allow the command to execute. if RUN_SETUP is not set or is any other value, the execute the command.
+	 
+	- MicroRTS.py build <build_dir>:
+		* General idea: builds the whole project into a single MicroRTS.jar file. Intermediate files + MicroRTS.jar file all go inside <build_dir> files.
+		* THe original commands for building, from the original author is:
+			 javac -cp "lib/*:src" -d bin $(find . -name "*.java") # compile source files
+			 cd bin
+			 find ../lib -name "*.jar" | xargs -n 1 jar xvf # extract the contents of the JAR dependencies
+			 jar cvf microrts.jar $(find . -name '*.class' -type f) # create a single JAR file with sources and dependencies
+		 Explanations:
+			 javac -cp "lib/*:src" -d bin $(find . -name "*.java") # compile source files
+				javac - this is the java compiles. Compiles .java to .class files.
+					javac <options> <source_files>
+				Options:
+					-cp = classpath => specify there to fined user defined .class files
+			
+
+

@@ -1,4 +1,4 @@
-# Prepares the shell for working with MicroRTS.
+# Prepares the shell for working with MicroRTS. Requirements: bash, Java JDK.
 # MicroRTS needs Java JDK to exist on your system(either you install it or you get it from an archive). You can download Java JDK at https://www.oracle.com/java/technologies/downloads/
 # Exports the environment variables JAVA_HOME, JAVA_BIN, JAVA_SERVER and adds them to the current path. Only modify the JAVA_HOME variable to your own path.
 # The environment variables export here are not global, only local to your current running shell (terminal), they will dissapear when you close your current running shell(terminal).

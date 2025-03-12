@@ -4,6 +4,8 @@ import subprocess
 
 class MicroRTS:
     """
+    Also check docs/MicroRTS.py_Docs.txt
+
     Parses and interprets the commands and arguments when calling MicroRTS.py script.
 
     MicroRTS.py <command> [<arguments>] (<arguments> have different meaning based on <command>)

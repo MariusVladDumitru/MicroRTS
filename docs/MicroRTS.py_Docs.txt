@@ -1,0 +1,88 @@
+======================================================DOCUMENTATION FOR <PROJECT_ROOT>/scripts/MicroRTS.py=========================================================================
+
+MicroRTS is a game written in Java, a platform independet programming language. Because of this, i had the idea of automatic the build process of the game, independent of the operating system. For this need to use a platform independet programming language. I chose python. If, at any point in time, i want to switch from windows to linux or viceversa, then there will be no problems.
+
+<PROJECT_ROOT>/scripts/MicroRTS.py is a python script that makes it easy to perform basic operations with the game, eliminating the need to work directly with the game files or the .jar file.
+The conda environment that MicroRTS.py uses is named MicroRTS.
+<PROJECT_ROOT>/scripts/MicroRTS.py will we used by the interface project MicroRTS-Python, whenever needed.
+
+The game will be build(compiled) into a single .jar file named MicroRTS.jar. This will be the final executable that will be used.
+
+MicroRTS.py usage:
+	MicroRTS.py <command> <arguments>
+
+ - <arguments> are valid only for the current <command>. Some <command> have <arguments>, others do not.
+ - <arguments> between [] are optional. Each valid <arguments> have a default value. If <arguments> have been omitted then the default value is used. 
+
+<command> (summary): 
+	setup - Makes all the necesary setup for the game to build/run.
+
+	build [<build_path>] - builds the game into a single .jar file named MicroRTS.jar inside the <build_path> folder.
+
+	clean [<clean_path>] - deletes the contents of the <clean_path> folder.
+
+	start [<game_arguments>] - starts the game with <game_arguments>.
+
+	start-gui [<game_arguments>] - starts the game frontend (game gui) with <game_arguments>.
+
+	stop - Ends the execution of the game or game frontend ( game gui).
+
+
+Detailed Description:
+
+	 - MicroRTS.py setup:
+		* Makes all the necesary setup for the game to build/run. The game requires JAVA JDK + libraries located in the lib folder to run. The contents of the lib folder are already included by default in MicroRTS.jar, however Java JDK needs to be installed by the user.
+		* Java JDK, in order to function, need the existence of the environment variable JAVA_HOME that holds the full instalation path of JAVA JDK.
+		* Java JDK, need to be added in the PATH environment variable because the game needs javac to create MicroRTS.jar and java to run MicroRTS.jar
+		* These steps are handled by <PROJECT_ROOT>/scripts/Setup.bat (for windows) or <PROJECT_ROOT>/scripts/Setup.sh (for linux). So, one of the Setup files needs to be executed in order to prepare the shell.
+		* Setup.bat is executed by cmd on Windows.
+		* Setup.sh is executed by bash on linux.
+		* Before MicroRTS.py setup execution, the user need to manually edit the Setup file for his operating system to edit line 11, modify JAVA_HOME with the full path where Java JDK is installed.
+		* Running MicroRTS.py setup creates a new instance of bash/cmd that executed Setup.sh/Setup.bat. After execution ends the new instance remains, and all further interaction with the game will be made inside the new instance of bash/cmd.
+		* MicroRTS.py setup needs to be executed only once, when you open your terminal(shell), BEFORE starting work with the game. If you close and reopen the terminal(shell), the you need to run this command again.
+		* The Setup files creates a RUN_SETUP=true environment variables. This signals that the setup commands has already been executed and is not needed to be executed again(except if the terminal closes and all current enviromnent variables are lost).
+		* MicroRTS.py setup, WILL ALWAYS CHECK IF RUN_SETUP == true. If RUN_SETUP does not exist or has a different value, then the Setup script is executed, else the command ends.
+					
+	- MicroRTS.py build [<build_path>]:
+		* Description 1
+		* Description 2
+
+	- MicroRTS.py clean [<clean_path>]:
+		* Description 1
+		* Description 2
+
+	- MicroRTS.py start [<game_arguments>]:
+		* Description 1
+		* Description 2
+
+	- MicroRTS.py start-gui [<game_arguments]:
+		* Description 1
+		* Description 2
+
+	- MicroRTS.py stop:
+		* Description 1
+		* Description 2
+
+		
+
+
+ 
+======================= Here comes the old stuff =================================================================================
+
+
+- MicroRTS.py build <build_dir>:
+		* General idea: builds the whole project into a single MicroRTS.jar file. Intermediate files + MicroRTS.jar file all go inside <build_dir> files.
+		* THe original commands for building, from the original author is:
+			 javac -cp "lib/*:src" -d bin $(find . -name "*.java") # compile source files
+			 cd bin
+			 find ../lib -name "*.jar" | xargs -n 1 jar xvf # extract the contents of the JAR dependencies
+			 jar cvf microrts.jar $(find . -name '*.class' -type f) # create a single JAR file with sources and dependencies
+		 Explanations:
+			 javac -cp "lib/*:src" -d bin $(find . -name "*.java") # compile source files
+				javac - this is the java compiles. Compiles .java to .class files.
+					javac <options> <source_files>
+				Options:
+					-cp = classpath => specify there to fined user defined .class files
+			
+
+

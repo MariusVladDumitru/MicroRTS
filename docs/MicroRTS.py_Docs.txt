@@ -50,13 +50,28 @@ Detailed Description:
 		* <build_path> (default value) = <PROJECT_ROOT>/build.
 		* If <build_path> is provided AND exists on the drive then <build_path> is used. This implies a check to see if <build_path> exists on the drive or not.
 		* If <build_path> is empty, omitted, does not exist on the drive, then the default value <PROJECT_ROOT>/build is used instead.
-		* <build_path> is saved as an environment variable because it is needed by the clean command.
+		* <build_path> is saved as an environment variable because it is needed by the clean command. set BUILD_PATH=<build_path>
 		* For creating the final MicroRTS.jar file, the javac utility + the .jar files from the lib folder are needed.
 		* The commands for building the final MicroRTS.jar file are:
 			1. javac -cp "lib\*" -d build -Xlint:all -Xmaxwarns 10000 -Xmaxerrs 10000 $(find src -name "*.java"): 	
 				# javac <options> <source_files>. Java Compiler. Compiles .java (<source_files>) into bytecode .class files using <options>. If one .java file contains multiple classes, each one will be compiled in a separate .class file. Basically 1 .class file = 1 compiled class.
 				# -cp "path1:path2" (Linux) or -cp "path1;path2" -> classpath. Ths is a path(directory) that tells the compiler where to find user defined .class files. If the user wants to tell the compiler where to find .jar files, he has to list them specifically by name: file1.jar,file2.jar, etc. These .class files or .jar files are required to be used by other parts of the code.
- 					## -cp "lib/*" -> include all the .jar files inside the lib folder. If the user would have written -cp "lib" this would mean include all .class files inside the lib folder. However the lib folder does not hve any .class files, it has only .jar files. To include the .jar files, the user would have to written evrey .jar file by hand, ex: -cp "lib/file1.jar:lib/file2.jar:lib/file3.jar". For convenience -cp "lib/*" means include all .jar files inside de lib folder by default, and IGNORE any .class file inside the lib folder. SO /* means include any .jar file and ignore any .class file. ---AM RAMAS AICI LA EXPLICATIA DIFERENTEI DINTRE <dir> si <dir/*>
+ 					## -cp "lib/*" -> include all the .jar files inside the lib folder. If the user would have written -cp "lib" this would mean include all .class files inside the lib folder. However the lib folder does not hve any .class files, it has only .jar files. To include the .jar files, the user would have to written evrey .jar file by hand, ex: -cp "lib/file1.jar:lib/file2.jar:lib/file3.jar". For convenience -cp "lib/*" means include all .jar files inside de lib folder by default, and IGNORE any .class file inside the lib folder. SO /* means include any .jar file and ignore any .class file.
+						### Example: lib has the structure:
+							file1_jar.jar
+							file2_jar.jar
+							file3_class.class
+							file4_class.class
+							subfolder/file5_jar.jar
+							subfolder/file6_class.class
+							
+							#### -cp "<path>" -> includes all the .class files inside <path> folder but ignores all .jar files inside <path> folder and ignores all subfolders recursively inside <path> folder.
+							#### If you ALSO want to include the .class files from subfolders inside path, alongside the files in <path> folder, you need to add them specifically, -cp "<path>:<path_subfolder1>:<path_subfolder2>" where path_subfolder1 = <path>/subfolder1, path_subfolder2 = <path>/subfolder2.
+							#### -cp <path/*>" -> includes all the .jar files inside the <path> folder but ignores all the .class files inside <path> folder AND ignores all subdirectories inside <path> folder.
+							#### If you ALSO want to include the .jar files from subfolders inside path, alongside the files in <path> folder, you need to add them specifically, -cp "<path/*>:<path_subfolder1/*>:<path_subfolder2/*>" where path_subfolder1 = <path>/subfolder1, path_subfolder2 = <path>/subfolder2.
+							#### If you want to include both .jar and .class files inside <path> folder and inside it's subfolders, then you have to use a mix of the two:
+								-cp "lib:lib/*:path_subfolder1:path_subfolder1/*:path_subfolder2:path_subfolder2/*" where path_subfolder1 = <path>/subfolder1, path_subfolder2 = <path>/subfolder2. 
+ 
 				# -d <path> -> write all the .class files inside the <path> folder.
 				  	## -d build -> write all the .class files inside the <PROJECT_PATH>/build folder. 
 				# $(find src -name "*.java"):
@@ -66,9 +81,15 @@ Detailed Description:
 					## Xlint:all -> enable all warnings. All warnings types will be printed.
 					## Xmaxwarns 10000 -> print a max number of 10000 warnings to the console.
 					## Xmaxerrs 10000 -> print a max number of 10000 errors to the console.
-				# javac -cp "lib/*" -d build -Xlint:all $(find src -name "*.java") -> compile all the .java files from the src folder(including all subfolders recursevly), write the corresponding .class files inside the build folder, use the contents of the lib folder to find any needed external libraries and link them(they do not become part of the .class file, they are only linked, you need to use -cp "lib/*" again when running the .class file) and output all warnings in the process. 
+				# javac -cp "lib/*" -d build -Xlint:all $(find src -name "*.java") -> compile all the .java files from the src folder and all it's subfolders recursively, write the resulting .class files inside the build folder, use the contents of the lib folder to find (include) any needed external libraries and link them(they do not become part of the .class file, they are only linked, you need to use -cp "lib/*" again when running the .class file) print any warning and error you find, up to a cap of 10000 warnings and 10000 errors. 
 				  
-	
+		2. cd build - change into the build directory
+		3. find ../lib -name "*.jar" | xargs -n 1 jar xvf # extract the contents of the JAR dependencies:
+			# find ../lib -name "*.jar" -> search recursively inside the lib folder ( we are in build that is why ../lib is there) for files whose names contain ".jar" aka search recursively inside lib folder for all ".jar" files.
+			# | -> pipe operator. The output of the previous command becomes input for the next command.
+			# xargs -n 1 jar xvf:
+				
+ 
 	- MicroRTS.py clean [<clean_path>]:
 		* Description 1
 		* Description 2

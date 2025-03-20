@@ -37,6 +37,7 @@ Detailed Description:
 		* These steps are handled by <PROJECT_ROOT>/scripts/Setup.bat (for windows) or <PROJECT_ROOT>/scripts/Setup.sh (for linux). So, one of the Setup files needs to be executed in order to prepare the shell.
 		* Setup.bat is executed by cmd on Windows.
 		* Setup.sh is executed by bash on linux.
+		* Add the scripts folder to path. For this, the script need to determine the absolute path of the project folder aka PROJECT_ROOT. Then add <PROJECT_ROOT>\scripts to path. Make this operation in python code because it's more easy to determine <PROJECT_ROOT>.
 		* Before MicroRTS.py setup execution, the user need to manually edit the Setup file for his operating system to edit line 11, modify JAVA_HOME with the full path where Java JDK is installed.
 		* Running MicroRTS.py setup creates a new instance of bash/cmd that executed Setup.sh/Setup.bat. After execution ends the new instance remains, and all further interaction with the game will be made inside the new instance of bash/cmd.
 		* MicroRTS.py setup needs to be executed only once, when you open your terminal(shell), BEFORE starting work with the game. If you close and reopen the terminal(shell), the you need to run this command again.

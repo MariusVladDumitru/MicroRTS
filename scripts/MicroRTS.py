@@ -4,7 +4,7 @@ import subprocess
 
 class MicroRTS:
     """
-    Also check docs/MicroRTS.py_Docs.txt
+    Also check docs/MicroRTS.py_Docs.txt -> THIS IS WAY MORE DETAILED.
 
     Parses and interprets the commands and arguments when calling MicroRTS.py script.
 
@@ -25,7 +25,7 @@ class MicroRTS:
                               If <clean_path> is VALID then <clean_path> is used.
                               If <clean_path> is omitted/empty/INVALID then <build_path> is used. If <build_path> is empty/INVALID the the default value <build_path> (default_value) = <PROJECT_ROOT>/build is used.
 
-        start [<game_arguments>]: creates a new instance the game with optional <game_arguments> using the cmd/bash instance already started with the previous setup command. Performs a chech if setup was executed before(use the RUN_SETUP environment variable). 
+        start [<MicroRTS.py_path>][<game_arguments>]: creates a new instance the game with optional <game_arguments> using the cmd/bash instance already started with the previous setup command. Performs a chech if setup was executed before(use the RUN_SETUP environment variable). 
                                   <game_arguments> are passed directly to the game.
                                   If an older instance of the game is already running, then a new instance WILL NOT BE started. An error will pop up. 
 

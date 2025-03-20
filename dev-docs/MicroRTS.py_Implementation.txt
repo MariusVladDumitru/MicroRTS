@@ -50,7 +50,11 @@ Detailed Description:
 		* <build_path> (default value) = <PROJECT_ROOT>/build.
 		* If <build_path> is provided AND exists on the drive then <build_path> is used. This implies a check to see if <build_path> exists on the drive or not.
 		* If <build_path> is empty, omitted, does not exist on the drive, then the default value <PROJECT_ROOT>/build is used instead.
-		* <build_path> is saved as an environment variable because it is needed by the clean command. set BUILD_PATH=<build_path>
+		* <build_path> is saved as an environment variable because it is needed by the clean command. set BUILD_PATH=<build_path>.
+		* This command also sets the enviromnet variable BUILD_DONE = true to signal the build status. This variable will be set:
+			# BUILD_DONE = true -> the build process was successful and there is a final MicroRTS.jar file inside the <build_path>.
+			# BUILD_DONE = false -> the build process was NOT successult and there is NO final MicroRTS.jar file but there may be intermediate .class files inside the <build_path>.
+		* Checks the BUILD_DONE == true environment variable to know if a previous build was correct or not. If BUILD_DONE == true/false then call the clean command(a previous build was successful or attepted) After the clean command finishes move on with the build process. if BUILD_DONE is not set, the move on.
 		* For creating the final MicroRTS.jar file, the javac utility + the .jar files from the lib folder are needed.
 		* The commands for building the final MicroRTS.jar file are:
 			1. javac -cp "lib\*" -d build -Xlint:all -Xmaxwarns 10000 -Xmaxerrs 10000 $(find src -name "*.java"): 	
@@ -75,7 +79,7 @@ Detailed Description:
 				# -d <path> -> write all the .class files inside the <path> folder.
 				  	## -d build -> write all the .class files inside the <PROJECT_PATH>/build folder. 
 				# $(find src -name "*.java"):
-					## $() - bash shell command substitution. Run the command inside the () and use it's output, in place, as an argument for another comand
+					## $(<command>) - bash shell command substitution. Run the <command> inside the () and use it's output, in place, as an argument for another command.
 					### find src -name ".java" -> search recursively inside the src folder AND inside all of it's folders for files that contains the string ".java" in their names. Search for all the .java files inside the src directory. This command outputs the RELATIVE PATH to evrey file name whose names contain ".java" (relative outptut to evrey .java file inside the src folder and all it's subfolders recursively).
 					## $(find src -name "*.java") -> provide a list all .java files(with relative paths) inside the src folder and all it's subfolders.
 					## Xlint:all -> enable all warnings. All warnings types will be printed.
@@ -85,47 +89,80 @@ Detailed Description:
 				  
 		2. cd build - change into the build directory
 		3. find ../lib -name "*.jar" | xargs -n 1 jar xvf # extract the contents of the JAR dependencies:
-			# find ../lib -name "*.jar" -> search recursively inside the lib folder ( we are in build that is why ../lib is there) for files whose names contain ".jar" aka search recursively inside lib folder for all ".jar" files.
+			# find ../lib -name "*.jar" -> search recursively inside the lib folder ( we are in build that is why ../lib is there) for files whose names contain ".jar" meaning search recursively inside lib folder for all ".jar" files and display theirs names and relative paths.
 			# | -> pipe operator. The output of the previous command becomes input for the next command.
 			# xargs -n 1 jar xvf:
-				
- 
+				## xargs -n 1:
+					### xargs -> builds and executes commands from standard input OR from piped data
+					### -n 1 -> pass only one argument at a time
+				## xargs -n 1 -> execute the received commands, either through standard input or through piping one command at a time
+				## jar xvf:
+					### jar -> java utility to create, extract, manager .jar files
+					### xvf -> flags for the jar commandd:
+						x -> extract files from the .jar archive.
+						v -> Verbose output aka show details of extracted files.
+						f -> next argument is represents the .jar file filename
+				## jar xvf -> extract the contents of the .jar file specified by <filename>(<filename> is the argument that comes after the flags), output all the extracted files details to the console.
+			# xargs -n 1 jar xvf -> exectue the command jar xvf <filename> one line at a time meaning extract each .jar file, one file at a time. The name and relative path of the files to be extracted are given as input using the pipe | operator. These filenames alogside their relative path are the output of a previous command and piped in to this command.
+			# find ../lib -name ".jar" | xargs -n 1 jar xvf -> search recursively inside de lib folder(including it's subfolder) for all the .jar files and list their relative paths and their names.This output of the find command becomes input to the xargs command meaning extract each the contents of the current .jar file, output the results to the console, extract one file at a time. The contents of the .jar file are extracted inside the current folder witch, in our case, is the build folder.
+
+		4. jar cvf MicroRTS.jar $(find build -name '*.class' -type f):
+			# jar cvf MicroRTS.jar -> creates the MicroRTS.jar jar file and outptus the details to the console. c - create file, v - verbose (oputput what you do to the terminal), f - specify the .jar filename.
+			# $(find build -name '*.class' -type f):
+				## $(<command>) - bash shell command substitution. Run the <command> inside the () and use it's output, in place, as an argument for another command.
+				## find build -name '*.class' -type f -> search inside the build folder for all the files containing '.class' and display theirs names and relative paths, while ignoring any subdirectories, search only for files.  -type f -> ignore subdirectories, search only for files. 
+			# jar cvf MicroRTS.jar $(find . -name '*.class' -type f) -> create the final MicroRTS.jar file using the jar utility from all the .class files inside the build folder.
+
+		To summarise, in order to build the projects and get the final MicroRTS.jar file, the steps are:
+			& Compile all the .java files inside the src folder recursively, put the resulting .class files inside the build folder.
+			& For the required libraries(witch are in lib folder): extract all .class files from all the available .jar files and put them inside the build folder.
+			& In this stage, the build folder will contain .class files from both the project and any needed library. Just compile all the .class files available into one big .jar file named MicroRTS.jar
+ 			 
 	- MicroRTS.py clean [<clean_path>]:
-		* Description 1
-		* Description 2
-
-	- MicroRTS.py start [<game_arguments>]:
-		* Description 1
-		* Description 2
-
-	- MicroRTS.py start-gui [<game_arguments]:
-		* Description 1
-		* Description 2
-
-	- MicroRTS.py stop:
-		* Description 1
-		* Description 2
-
-		
-
-
- 
-======================= Here comes the old stuff =================================================================================
-
-
-- MicroRTS.py build <build_dir>:
-		* General idea: builds the whole project into a single MicroRTS.jar file. Intermediate files + MicroRTS.jar file all go inside <build_dir> files.
-		* THe original commands for building, from the original author is:
-			 javac -cp "lib/*:src" -d bin $(find . -name "*.java") # compile source files
-			 cd bin
-			 find ../lib -name "*.jar" | xargs -n 1 jar xvf # extract the contents of the JAR dependencies
-			 jar cvf microrts.jar $(find . -name '*.class' -type f) # create a single JAR file with sources and dependencies
-		 Explanations:
-			 javac -cp "lib/*:src" -d bin $(find . -name "*.java") # compile source files
-				javac - this is the java compiles. Compiles .java to .class files.
-					javac <options> <source_files>
-				Options:
-					-cp = classpath => specify there to fined user defined .class files
+		* Performes the clean operation (after a previous build command). This means deleting all the intermediate .class files resulting from the build process and the final MicroRTS.jar from <clean_path> or <build_path>.
+			# Checks if BUILD_DONE == true/false (a previous build command was successful or not) moves along with the clean process.
+			# If BUILD_DONE is not set => a previous build was not attempted => clean command will exit.
+		* If <clean_path> is omitted:
+			# Then <clean_path> = <build_path> and moves along with the clean process.
+		* if <clean_path> is provided:
+			# checks <clean_path>:
+				## if <clean_path> is valid, then performs the clean operation on <clean_path>
+				## if <clean_path> is invalid then <clean_path> (default_value) = <project_root>/build and moves on with the operation.
 			
+	- MicroRTS.py start [<MicroRTS.jar_path][<game_arguments>]:
+		* <MicroRTS.jar_path> = full that where microrts.jar is located (microrts.jar name is not included)
+		* <game_arguments> = game arguments that will be passed directly to the game.
+		* creates a new instance of the game with optional <game_arguments> using the cmd/bash instance already started with the previous setup command.
+		* Checks if a previous instance of the game/game-gui is already running. If so, call the stop command then move forward.
+		* if RUN_SETUP == true then move forward.
+		* if RUN_SETUP == false or not set then call the setup method, and tell the user that it need to run this command again because he did not run setup before.
+		* if <MICRORTS.JAR_path> is provided -> checks if <microrts.jar> path is valid and contains the microrts.jar file.
+		* If <MicroRTS.jar_path> is provided but invalid then the build folder is used.
+		* if <MicroRTS.JAR_path> is omitted:
+		 	# if BUILD_DONE == true then microrts.jar exists and is in <build_path>.  run the game with <game_arguments>.
+			# if BUILD_DONE == false/inexistend then run the build command with no parameters to make the microrts.jar file. this file is in <build_path>. after, run the game and pass <game_arguments>.
+		* the command to start the game is:
+			java -cp MicroRTS.jar rts.MicroRTS <game_arguments>:
+				# java -> launch Java Virtual Machine (JVM) to execute the code
+				# -cp MicroRTS.jar -> specifies the classpath, tells java where to look for .class files and dependencies needed to run the program. JVM loads the classes from MicroRTS.jar
+				# rts.MicroRTS -> the MicroRTS class inside the rts package (hint: this contains the main function)
+				# <game_arguments> -> all the arguments that will be passed to the game
+				# java -cp MicroRTS.jar rts.MicroRTS <game_arguments> -> starts the Java Virtual Machine(JVM) that executes the MicroRTS class inside the rts package. Search for all classes and dependencies inside MicroRTS.jar file. Pass <game_arguments> to the MicroRTS class.	
 
-
+	- MicroRTS.py start-gui [<MicroRTS.jar_path]:
+		* Does the exact same things as the start command with two exceptions:
+			a. Instead of starting the game, it starts the game frontend(game gui). The game frontend is a GUI interface that allows different setups of the game to be build before running the game.
+			b. Does not accept additional <game_arguments> as the start command does
+		* The command to start the game-gui is:
+			java -cp MicroRTS.jar gui.frontend.FrontEnd:
+				# java -> launch Java Virtual Machine (JVM) to execute the code
+				# -cp MicroRTS.jar -> specifies the classpath, tells java where to look for .class files and dependencies needed to run the program. JVM loads the classes from MicroRTS.jar
+				# gui.frontend.FrontEnd -> the FrontEnd class inside the gui.frontend package (hint: this contains the main function)
+				# <game_arguments> -> all the arguments that will be passed to the game
+				#  java -cp MicroRTS.jar gui.frontend.FrontEnd-> starts the Java Virtual Machine(JVM) that executes the FrontEnd class inside the gui.frontend package. Search for all classes and dependencies inside MicroRTS.jar file.
+			
+	- MicroRTS.py stop:
+		* Stop the execution of any current running instance of MicroRTS.
+		* Checks if the game is currently running:
+			# If the game is running -> stops the game
+			# If the game is not running -> don't do anything.

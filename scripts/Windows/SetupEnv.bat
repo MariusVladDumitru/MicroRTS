@@ -8,7 +8,7 @@
 @echo off
 
 :: Path where JAVA JDK is Installed. MODIFY HERE.
-set JAVA_HOME=C:\Program Files\Java\jdk-23
+set JAVA_HOME="C:\Program Files\Java\jdk-23"
 
 :: Do not modify
 set JAVA_BIN=%JAVA_HOME%\bin
@@ -20,4 +20,4 @@ set JAVA_SERVER=%JAVA_BIN%\server
 set PATH=%PATH%;%JAVA_BIN%;%JAVA_SERVER%
 
 :: This is a flag to communicate that this script has been executed.
-set RUN_SETUP=true
+set RUN_SETUP=True

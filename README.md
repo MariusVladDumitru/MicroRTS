@@ -20,40 +20,58 @@ Thank you to the original authors of python-microRTS, available at [https://gith
 
 # Setup
 - Install a text editor or IDE of your choice. Recommandations: [Intellij IDEA](https://www.jetbrains.com/idea/), [NetBeans](https://netbeans.apache.org/front/main/index.html), [Visual Studio Code](https://code.visualstudio.com/), [Sublime Text](https://www.sublimetext.com/), [Notepad++](https://notepad-plus-plus.org/), [Kate](https://kate-editor.org/).
+
 - Install Miniconda or Anaconda available [here](https://www.anaconda.com/download/). Documentation: [Conda documentation](https://docs.conda.io/projects/conda/en/latest/index.html), [Getting Started Guide](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html).  
+
 - Create new conda environment: 
 ```shell
 conda create -n MicroRTS
 ```
+
 - Activate the new environment: 
 ```shell
 conda activate MicroRTS
 ```
-- Clone this repository: 
-```shell
-git clone https://github.com/MariusVladDumitru/MicroRTS.git
-```
-- cd into MicroRTS/Scripts: 
-```shell
-cd MicroRTS/scripts
-```
+
 - Install packages from requirements.txt: 
 ```shell
 conda install --yes --file MicroRTS.py_requirements.txt
 ```
-***CHECK IF THIS WORKS***
+***CHECK IF THIS WORKS - the conda install from requirements command***
+
+- Close the terminal where you typed these commands.
 
 - Install JAVA JDK from [https://www.oracle.com/java/technologies/downloads/](https://www.oracle.com/java/technologies/downloads/). Either use the installer or extract the archive.
 
-- For Windows ***Setup.bat***, for Linux ***Setup.sh***:
-    - Edit Setup.bat/Setup.sh, go to line 11 and add the absolute path of the Java JDK you installed previously to the JAVA_HOME variable ```JAVA_HOME=<ABSOLUTE_PATH_TO_JAVA_JDK>```.
-
-- Run ```MicroRTS.py setup```:
+- Clone this repository: 
 ```shell
-python MicroRTS.py setup
+git clone https://github.com/MariusVladDumitru/MicroRTS.git
 ```
 
-# How to use MicroRTS
+- cd into MicroRTS/Scripts/Windows or MicroRTS/Scripts/Linux: 
+```shell
+cd MicroRTS/scripts/Windows
+```
+OR
+```shell
+cd MicroRTS/scripts/Linux
+```
+
+- You need to edit ***SetupEnv.bat*** and ***SetupConda.bat*** (Windows); ***SetupEnv.sh*** and ***SetupConda.sh*** (Windows):
+    - For ***SetupEnv.bat/SetupEnv.sh***, edit the line ```JAVA_HOME=```, copy-paste the absolute path of the Java JDK you installed previously. ```JAVA_HOME=<ABSOLUTE_PATH_TO_JAVA_JDK>```.
+    - For ***SetupConda.bat/SetupConda.sh***, edit the line ```Miniconda=```, copy-paste the absolute path of the Miniconda distribution. ```Miniconda=<ABSOLUTE_PATH_TO_MINICONDA_DISTRIBUTION>```
+
+- Run ```RunSetup.bat``` (Windows) or ```RunSetup.sh```(Linux):
+```shell
+RunSetup.bat
+```
+OR
+```shell
+RunSetup.sh
+```
+- The RunSetup script will provide a command prompt with all the needed setup done, including activating the MicroRTS conda environment. In this new command prompt you are supposed to interact with the game via MicroRTS.py script, ```MicroRTS.py <command> [<optional_arguments>]```. No need to run ```MicroRTS.py setup```, it has already been done. If you close and reopen the terminal, ```cd``` to ```scripts/<Windows/Linux>``` and execute ```RunSetup.bat/RunSetup.sh``` again.
+
+# How to use MicroRTS.py
 - MicroRTS gane is managed by ```MicroRTS.py``` script located at ```<PROJECT_ROOT>/scripts/MicroRTS.py```.
 - ```MicroRTS.py``` commands:
 
@@ -73,7 +91,7 @@ python MicroRTS.py setup
         Deletes the contents of ```<PROJECT_ROOT>/build``` folder, including ```MicroRTS.jar```. This prepares for a new build of the game.
 
     -   ```shell
-        MicroRTS.py start [<argument_list>]
+        MicroRTS.py start [<here_is_something>][<argument_list>]
         ``` 
         Runs the game with optional ```<argument_list>```. ```<argument_list>``` is passed further to the game:  
         - Ex: ```MicroRts.py run -f configFile <=> java -cp MicroRTS.jar rts.MicroRTS -f configFile```.

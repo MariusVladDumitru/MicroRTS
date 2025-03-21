@@ -20,4 +20,4 @@ export JAVA_SERVER=$JAVA_BIN/server
 export PATH=$PATH:$JAVA_BIN:$JAVA_SERVER
 
 # This is a flag to communicate that this script has been executed.
-export RUN_SETUP=true
+export RUN_SETUP=True

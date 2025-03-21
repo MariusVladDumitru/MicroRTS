@@ -84,9 +84,10 @@ class MicroRTS:
                 arg = '/k'
 
             case 'bash':
-                delimiter = ':'
-                setup_file = 'Linux/SetupEnv.sh'
-                arg = '--rcfile'
+                pass    
+               # delimiter = ':'
+               # setup_file = 'Linux/SetupEnv.sh'
+               # arg = '--rcfile'
 
        # add <PROJECT_ROOT>/scripts to path 
         environ['PATH'] = oldpath + delimiter + str(self.PROJECT_ROOT / 'scripts')

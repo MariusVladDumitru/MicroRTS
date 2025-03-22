@@ -55,7 +55,7 @@ Detailed Description:
 		* This command also sets the enviromnet variable BUILD_DONE = true to signal the build status. This variable will be set:
 			# BUILD_DONE = true -> the build process was successful and there is a final MicroRTS.jar file inside the <build_path>.
 			# BUILD_DONE = false -> the build process was NOT successult and there is NO final MicroRTS.jar file but there may be intermediate .class files inside the <build_path>.
-		* Checks the BUILD_DONE == true environment variable to know if a previous build was correct or not. If BUILD_DONE == true/false then call the clean command(a previous build was successful or attepted) After the clean command finishes move on with the build process. if BUILD_DONE is not set, the move on.
+		* Checks the BUILD_DONE == true environment variable to know if a previous build was correct or not. If BUILD_DONE == False then call the clean command(a previous build was successful or attepted) After the clean command finishes move on with the build process. if BUILD_DONE is not set, the move on.
 		* For creating the final MicroRTS.jar file, the javac utility + the .jar files from the lib folder are needed.
 		* The commands for building the final MicroRTS.jar file are:
 			1. javac -cp "lib\*" -d build -Xlint:all -Xmaxwarns 10000 -Xmaxerrs 10000 $(find src -name "*.java"): 	

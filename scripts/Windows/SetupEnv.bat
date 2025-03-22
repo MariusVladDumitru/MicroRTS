@@ -19,5 +19,5 @@ set JAVA_SERVER=%JAVA_BIN%\server
 :: Add to existing path
 set PATH=%PATH%;%JAVA_BIN%;%JAVA_SERVER%
 
-:: This is a flag to communicate that this script has been executed.
-set RUN_SETUP=True
+::Signal that this script was executed
+set SETUP_ENV=Executed

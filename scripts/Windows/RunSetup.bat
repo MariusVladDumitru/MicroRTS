@@ -1,4 +1,4 @@
-:: Run this file to setup the environment for MicroRTS
+: Run this file to setup the environment for MicroRTS
 :: This script needs to be run from <PROJECT_ROOT>\scripts\Windows (current directory
 
 :: Don't show nothing on console

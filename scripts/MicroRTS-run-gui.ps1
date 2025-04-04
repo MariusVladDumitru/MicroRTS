@@ -2,10 +2,10 @@
 
 # The root folder of MicroRTS project
 # The W: drive must be substed
-$env:ROOT= 'W:\Active\Dissertation_Thesis\Code\MicroRTS
+$env:ROOT= 'W:\Active\Dissertation_Thesis\Code\MicroRTS'
 
 # Go to build folder
-Set-Location $ROOT/build
+Set-Location $env:ROOT\build
 
 # JAVA JDK must be in $env:PATH
 # MicroRTS.jar must be in build

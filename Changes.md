@@ -6,4 +6,5 @@
 - Added a post-commit git hook that run build.sh when a change is commited.
 - At some point all the projects assets(maps, traces, config, bayesianmodels, ahtn) where moved into the data folder. Because of this some hardcoded paths may be broken. You need to check all .java files for these hardcoded paths and fix them.
 
-# For future changes please don't forget to also add the date(s) of them.
+# 2026-11-21
+- Disabled the git hook post commit that automatically builds MicroRTS.jar when adding a new commit. This is temporary, i intend to re-enable it later.

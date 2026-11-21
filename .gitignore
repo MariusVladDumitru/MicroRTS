@@ -1,0 +1,11 @@
+### IntelliJ IDEA ###
+.idea
+
+# bin/tmp
+bin/tmp
+
+# bin/MicroRTS.jar
+bin/MicroRTS.jar
+
+# bin/build.log
+bin/build.log

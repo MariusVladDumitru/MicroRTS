@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="gui.frontend.FrontEnd" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="gui.frontend.FrontEnd" />
+    <module name="MicroRTS" />
+    <option name="WORKING_DIRECTORY" value="$USER_HOME$/Builds/MicroRTS" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

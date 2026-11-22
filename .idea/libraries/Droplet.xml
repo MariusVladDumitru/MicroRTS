@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Droplet">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bin/lib/bots/Droplet.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="TiamatBot">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bin/lib/bots/TiamatBot.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

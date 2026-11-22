@@ -8,3 +8,4 @@
 
 # 2026-11-21
 - Disabled the git hook post commit that automatically builds MicroRTS.jar when adding a new commit. This is temporary, i intend to re-enable it later.
+- Replaced build.sh with install.sh. install.sh builds MicroRTS.jar, copies MicroRTS.jar and the whole data folder in ~/Builds/MicroRTS/game. So ~/Builds/MicroRTS/game contains MicroRTS.jar and data folder.

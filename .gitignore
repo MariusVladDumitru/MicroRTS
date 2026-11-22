@@ -7,5 +7,5 @@ bin/MicroRTS.jar
 # bin/build.log
 bin/build.log
 
-# Ignore the out folder
-out
+# Ignore the bin/out folder
+bin/out

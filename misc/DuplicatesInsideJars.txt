@@ -881,5 +881,5 @@ TiamatBot/ai/asymmetric/ManagerUnits/ManagerMoreLife.class
 Izanagi/ai/asymmetric/ManagerUnits/ManagerMoreLife.class
 
 Results obtained by running the command: fdupes -r $(ls) > DuplicatesInsideJars.txt
-In the current folder, each .jar from bin/lib whas extracted in it's own subfolder. So the current folder contains subfolders with the contents of each .jar in bin/lib.
+In the current folder, each .jar from bin/lib was extracted in it's own subfolder preserving the internal structure of the .jar. So the current folder contains subfolders with the contents of each .jar in bin/lib.
 This is so that i have a track of duplicate files inside bin/lib/*.jar files.

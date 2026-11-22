@@ -9,3 +9,9 @@
 # 2026-11-21
 - Disabled the git hook post commit that automatically builds MicroRTS.jar when adding a new commit. This is temporary, i intend to re-enable it later.
 - Replaced build.sh with install.sh. install.sh builds MicroRTS.jar, moves MicroRTS.jar and copies data folder in ~/Builds/MicroRTS/game. So ~/Builds/MicroRTS/game contains MicroRTS.jar and data folder.
+
+# 2026-11-22
+- Discovered how to configure IntelliJ IDEA to run and debug classes inside the project
+- Re-enabled the post-commit hook. 
+- ~/Builds/MicroRTS is the working directory for the project. The path will store the MicroRTS.jar, it's data folder and all the new files and folders the project creates.
+- VERY IMPORTANT: when running the MicroRTS.jar file or when using one of IntelliJ IDEA's run configuration, always use the path ~/Builds/MicroRTS as working directory.

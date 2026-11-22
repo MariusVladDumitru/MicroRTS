@@ -1,4 +1,4 @@
 #!/bin/bash
 # Post commit git hook. Run this script after a new commit is made. 
-#echo "I am running a git hook that compiles and installs MicroRTS. Please be patinent until i am finished."
-#source ./build.sh
+echo "I am running a git hook that compiles and installs MicroRTS. Please be patient until i am finished."
+source ./install.sh

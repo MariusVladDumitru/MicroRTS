@@ -6,3 +6,6 @@ bin/MicroRTS.jar
 
 # bin/build.log
 bin/build.log
+
+# Ignore the out folder
+out

@@ -1,13 +1,8 @@
 #!/bin/bash
 # Run MicroRTS game
 
-# The root folder of MicroRTS project
-pushd .
-cd bin 
-if [ $? -ne 0 ]; then
-    echo "There is no bin folder. You need to be in the root folder of the MicroRTS project"
-	exit 1
-fi
+# MicroRTS.jar
+MICRORTS_JAR=~/Builds/MicroRTS/game/MicroRTS.jar
 
-java -cp ./MicroRTS.jar rts.MicroRTS "$@"
-popd
+# Run the game
+java -cp $MICRORTS_JAR rts.MicroRTS "$@"
